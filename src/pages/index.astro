@@ -1,0 +1,130 @@
+---
+import MdiTwitter from "~icons/mdi/twitter";
+import MdiGithub from "~icons/mdi/github";
+import MdiRss from "~icons/mdi/rss";
+import MdiLinkedin from "~icons/mdi/linkedin";
+import MdiSchool from "~icons/mdi/school";
+
+import ProjectList from "../components/ProjectList.astro";
+import PostsList from "../components/PostsList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import SeriesList from "../components/SeriesList.astro";
+import { TWITTER_HANDLE, GITHUB_HANDLE, LINKEDIN_HANDLE } from "../consts";
+
+const posts = await getCollection("blog");
+const projects = await getCollection("projects");
+
+const sortedPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .filter((post) => !post.data.planned && post.data.featured && post.data.ready)
+  .slice(0, 3);
+
+const featuredPosts = posts.filter((post) => post.data.featured);
+const featuredProjects = projects.filter((project) => project.data.featured);
+
+const featuredSeries = (await getCollection("series")).filter((s) => s.data.featured);
+---
+
+<BaseLayout>
+  <div class="space-y-10 sm:text-xl text-base">
+    <div class="space-y-4">
+      <h1 class="text-3xl sm:text-4xl font-black">
+        👋 Hi! I'm <a
+          class="underline underline-offset-2 decoration-orange-600 dark:decoration-orange-400"
+          href="/misc/about"
+          >Giuseppe </a>
+      </h1>
+      <p class="text-lg sm:text-xl sm:leading-8">
+        I’m a <span class="font-black">computer engineer</span> specialised in  <span class="font-black">Data Science</span> / <span class="font-black">ML</span> / <span class="font-black">AI</span> /insert_coolKeyword_here.
+        <br>Welcome to my journey in tech!<br>You’ll find projects, ideas, snippets. Sometimes curated, sometimes raw, as a simple note to myself and maybe helpful to you too.
+      </p>
+      <div class="space-x-1 flex-row">
+        <a
+        href={LINKEDIN_HANDLE}
+        target="_blank"
+        class="text-base inline-flex items-center justify-center space-x-2 py-2 px-3 rounded-md bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600"
+      >
+        <MdiLinkedin />
+        <span>LinkedIn</span>
+      </a>
+        <a
+          href={GITHUB_HANDLE}
+          target="_blank"
+          class="text-base inline-flex items-center justify-center space-x-2 py-2 px-3 rounded-md bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600"
+        >
+          <MdiGithub />
+          <span>GitHub</span>
+        </a>
+        <a
+        href="https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702907196/dev_website/misc/Giuseppe_Galilei_Resume.pdf"
+        target="_blank"
+        class="text-base inline-flex items-center justify-center space-x-2 py-2 px-3 rounded-md bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600"
+        >
+          <MdiSchool />
+          <span>CV</span>
+        </a>
+
+      </div>
+    </div>
+
+    {
+      featuredSeries.length > 0 && (
+        <div class="space-y-5">
+          <div class="flex space-x-2">
+            <h1 class="text-2xl sm:text-3xl">Series</h1>
+            <a
+              href="/series"
+              class="inline-flex text-2xl sm:text-3xl rounded-md  hover:dark:bg-neutral-700  hover:bg-neutral-200 hover:font-medium underline decoration-teal-600"
+            >
+            →
+            </a>
+          </div>
+          <SeriesList series={featuredSeries} />
+        </div>
+      )
+    }
+
+    <!-- {
+      featuredPosts.length > 0 && (
+        <div class="space-y-5">
+          <h1 class="text-3xl text-black dark:text-white">Featured Posts</h1>
+          <PostsList posts={featuredPosts} />
+        </div>
+      )
+    } -->
+
+    {
+      featuredProjects.length > 0 && (
+        <div class="space-y-5">
+          <div class="flex space-x-2">
+            <h1 class="text-2xl sm:text-3xl">Projects</h1>
+            <a
+              href="/projects"
+              class="inline-flex text-2xl sm:text-3xl rounded-md hover:bg-neutral-200 hover:dark:bg-neutral-700 hover:font-medium underline decoration-teal-600 "
+              >→</a
+            >
+          </div>
+          <ProjectList projects={featuredProjects} />
+        </div>
+      )
+    }
+    
+    {
+    sortedPosts.length > 0 && (
+    <div class="space-y-5">
+      <div class="flex space-x-2">
+        <h1 class="text-2xl sm:text-3xl">Latest Posts</h1>
+        <a
+          href="/blog"
+          class="inline-flex text-2xl sm:text-3xl rounded-md hover:bg-neutral-200 hover:font-medium underline decoration-teal-600 hover:dark:bg-neutral-700  "
+          >→</a
+        >
+      </div>
+      <PostsList posts={sortedPosts} />
+    </div>
+    )
+    }
+    
+  </div>
+</BaseLayout>

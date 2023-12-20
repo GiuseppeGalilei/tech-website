@@ -1,0 +1,63 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "./BaseLayout.astro";
+import TableOfContent from "../components/TableOfContent.astro";
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import { Image } from "astro:assets";
+import SeriesList from "../components/SeriesList.astro";
+import SeriesCard from "../components/SeriesCard.astro";
+
+type Blog = CollectionEntry<"blog">["data"];
+
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+export interface Props extends Blog {
+  readingTime: string;
+  headings: Heading[];
+}
+
+const {
+  title,
+  description,
+  tags,
+  pubDate,
+  updatedDate,
+  cover,
+  coverAlt,
+  readingTime,
+  headings,
+  seriesId,
+  orderInSeries,
+} = Astro.props;
+
+const series = (await getCollection("series")).find((s) => s.data.id === seriesId);
+---
+
+<BaseLayout title={title} description={description} postMeta={{ pubDate, tags }}>
+  <div
+    class="prose md:prose-lg prose-neutral max-w-none prose-headings:scroll-my-20 prose-a:underline-offset-2 prose-a:decoration-blue-600 prose-img:rounded-md dark:prose-invert"
+  >
+    <h1>{title}</h1>
+    <h3>{description}</h3>
+    
+    <div class="not-prose">
+      {cover && coverAlt && <img class="my-10 mb-1 rounded-md" src={cover} alt={coverAlt} />}
+    </div>
+    <div class="md:flex space-x-10">
+      <div class="w-full">
+        <div class="not-prose my-10">
+          {series && <SeriesCard series={series} order={orderInSeries} />}
+        </div>
+        <article>
+          <slot />
+        </article>
+
+  </div>
+</BaseLayout>
+
+

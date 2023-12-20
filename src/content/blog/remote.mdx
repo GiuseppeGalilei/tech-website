@@ -1,0 +1,100 @@
+---
+title: "Remote management, but enjoyable"
+description: "How I remotely manage my parents' house"
+featured: true
+ready: true
+seriesId: home
+orderInSeries: 1
+pubDate: "Sept 20 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702899528/dev_website/blog/lapserve/89qcxx_ut214i.jpg"
+coverAlt: "Hero Image"
+tags:
+- admin
+- remote
+- vpn
+---
+
+## Story time
+
+Once upon a time there was a family full of non tech savvy people, they were desperate for help, treating their phone as if it was their enemy, stucked in front of login forms because they kept forgetting their “very secure” password. 
+The home “hacker” was always there to help, but the issues were rising.
+More and more devices gained “smart” features over the years, speakers, TVs, even the kitchen robot began to ask for wifi passwords, damn it!
+As if things couldn’t get worse the “home hacker” was not a child anymore, moving out meant shifting the task from quick and boring fixes to long and irritating phonecalls, videocalls and shaky whatsapp pictures.
+Doom seemed near, but technology came to help.
+
+### TLDR
+
+I grow tired of managing my parents’ smart devices via phonecalls and teamviewer, so I developed a process for easy remote mainteinance, especially of android devices.
+
+## The Process
+
+I remotely get into my home network using a **VPN**-like solution, then I gain control of android devices using **adb** over tcp, even with video and audio mirroring using **scrcpy**.
+
+## The tools of the job
+
+**Tailscale** is a recently introduces VPN solution, something that seems godgiven considering its functionalities and easyness of use.
+For what concerns us, it allows to access our home network from outside even when behind notoriously tricky stuff, like firewalls and NAT.
+
+**Adb** is a tool used to interface with android devices, using USB or TCP, we’ll of course use the latter option.
+
+**Scrcpy** is an amazing open source tool which leverages adb to give us control alongside audio and video, to an android device.
+
+## Setup
+
+### Tailscale
+
+Visit [https://tailscale.com/](https://tailscale.com/)
+
+You need to create an account and download a client app on, at least, the device you’ll use for remote management and a device in your home local network (this one needs to be a windows/mac/linux machine).
+
+Then you’ll need to set the device at home to act as a subnet router over the routes you prefer, as an example:
+
+```bash
+tailscale up --advertise-routes=192.168.0.0/24,192.168.1.0/24
+```
+
+This needs to be approved in the Tailscale dashboard, then you are set.
+
+To check if everything is working, connect to the tailscale network and ping some device in the house using its local ip…. Magic, no?
+
+Note: It may seem trivial to you, in the end VPNs did that for ages, but living under heavy firewalls and CGNATs, for Tailscale to function so well, so easily, it is truly a dream come true!
+
+### Adb
+
+To set it up, just follow the [instructions](https://developer.android.com/tools/releases/platform-tools)
+
+On the android device you want to access, abilitate developer options and usb debugging.
+
+Then, from your computer run
+```bash
+adb connect <your device ip>
+```
+
+You’ll receive a notification on the android device, grant access and you are set.
+
+Plus:
+If you need to upload some files to the device, you can do it via:
+```bash
+adb push <local_device_file_path> <remote_device_destination_path>
+```
+
+
+Usually, on android, you would want to place files at /sdcard/
+
+### Scrcpy
+
+Install it following the [instructions](https://github.com/Genymobile/scrcpy)
+
+Then connect via adb to the device you want to manage and simply run
+```bash
+scrcpy
+```
+
+
+Hopefully a window will appear with you android device screen mirrored!
+
+Note: In case you are connected via adb to several devices, just disconnect from the ones you are not using before calling scrcpy.
+
+## The end
+
+That’s all, hope this will help you too!

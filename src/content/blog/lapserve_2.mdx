@@ -1,0 +1,91 @@
+---
+title: "Research and Choices"
+description: "Too many shiny new things, but \"shiny doesn't last\" "
+featured: False
+ready: true
+seriesId: lapserve
+orderInSeries: 2
+pubDate: "Sept 10 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702897739/dev_website/blog/lapserve/brand_identity_hzmumd.png"
+coverAlt: "Hero Image"
+tags:
+  - server
+  - docker
+  - backup
+---
+
+## System features I’m looking for
+
+**Mandatory**:
+
+- Encryption across all system drives
+- Debian based OS
+- Local and remote backup (3-2-1 strategy)
+- Docker container based services
+
+**Nice to have:**
+
+- Journaling filesystem (ideally BTRFS)
+- RAID-like redundancy
+- Remote access
+
+**Why:**
+
+**Encryption** needs no explanation, it gives ease of mind and should be painless to configure (using LUKS).
+I wanted a system based on **Debian** because it’s what I have the most experience on, having used daily a PopOs system in the last years. (Maybe in the future I’ll get myself into the Proxmox and Unraid rabbit-hole)
+The backup should follow a 3-2-1 strategy (system, local copy, remote copy), after all I’ll be storing memories I deeply care about.
+
+## The hardware
+
+Given that this is still a proof of concept I settled on reusing hardware I had laying around.
+
+I’ll use my mother’s old (very old) laptop. It’s an Asus K53 from 2011, equipped with a 4 core (8thread) i7, 8Gb of RAM, one USB3 port, three USB2, a SATA port and a DVD Drive.
+In the main SATA port I’ll place a 250GB SSD, while the DVD Drive will be replaced, using an adapter, with a 750GB HDD. The only USB 3 port will be used to connect the local backup drive (1TB HDD).
+
+As you see I’ve given up on RAID for the moment, this hardware is too limited in terms of expandability to allow it. Altough kudos to the MergerFS and Snapraid projects, it is possible that in the future they’ll come useful, I’ll keep an eye on them.
+
+Plus: imho a laptop makes a nice choice for a small and light-usage home server, especially for students which move around a lot. It is fairly light, it has an integrated battery (basically a cheap UPS) and has a screen and keyboard, not truly necessary but a UI is always nice to have.
+
+## The software
+
+### Underworld
+
+#### OS
+
+For the OS I’ve settled on a simple **Ubuntu 22.04 LTS**, I wanted something reliable with long support that I could set and forget. Also, being a mainstream distribution, troubeshooting should be easy.
+
+#### Filesystem
+
+As for the filesystem, I had to settle on a boring **EXT4 LUKS encrypted** partition. 
+It is baffling that still no major Debian based distribution supports BTRFS, with encryption and the correct subvolumes, by default.
+I tried following several tutorials but they all led to a lengthy process, which is not a problem by itself, but becomes in case of system rebuild. Given that I’m still experimenting, I was prepared to such eventuality. So I settled on something reliable and streamlined, trouble will come soon enough with other stuff!
+
+#### Docker
+
+Here comes docker! I’ve always loved it, until you start deploying several containers and they step on each other toes trying to obtain the network port ownership. 
+Well, I didn’t want to deal with compose files all the time, so I decided to settle on a mix of **[CasaOS](https://github.com/IceWhaleTech/CasaOS)** and **Portainer** to deploy and manage containers.
+
+**CasaOS** provides a **simple** and thought out user interface to deal with the simple needs of a home user, but no more, and that’s fine for me. For anything that requires **serious** thinkering there is the good old **Portainer**.
+CasaOS also provide easy deployment of popular images, already set up to not interfere with each other, hurray!
+
+#### Backup
+
+For the moment I’ll keep what I’m used to on my daily PopOs, **[Backintime](https://github.com/bit-team/backintime)** and **[Timeshift](https://github.com/linuxmint/timeshift)**.
+
+Backintime deals with personal files, like documents, photos and videos. While timeshift deals with system files.
+
+### Containers
+
+Here is where the fun starts. CasaOS already provides most of the containers I need through an easy to use AppStore, altough some thinkering will be required for a proper configuration.
+
+What I’ll be using:
+
+- **[Portainer](https://github.com/portainer/portainer)** : for advanced management of the docker environment
+- **[Adminer](https://www.adminer.org/)** : for management of databases
+- **[MariaDB](https://mariadb.org/)** : database which I’ll use for the more demanding applications
+- **[Nginx Proxy Manager](https://nginxproxymanager.com/)** : for managing access to the system
+- **[Cloudflared](https://github.com/cloudflare/cloudflared)** : for remote access via Cloudflare tunnels 
+- **[PiHole](https://github.com/pi-hole/pi-hole)** : for local DNS management and netwok wide AdBlocking
+- **[Syncthing](https://github.com/syncthing/syncthing)**  : P2P file sync app, used to keep in sync some folders across my various devices
+- **[Nextcloud](https://github.com/nextcloud)** : Fully fledged “self hosted Google Drive/Docs/everything replacement”, a bit more than what I need at the moment, but nice to have
+- **[Photoprism](https://github.com/photoprism/photoprism)** : Provides a nice web UI to display my photo library

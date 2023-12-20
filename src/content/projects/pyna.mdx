@@ -1,0 +1,78 @@
+---
+title: "Pyna - the mood reader"
+description: "Started with a three day hackathon, ended up with a press interview and showcase at Maker Faire Rome 2018"
+featured: true
+ready: True
+seriesId: first-series
+orderInSeries: 6
+pubDate: "Dec 12 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702333415/dev_website/projects/pyna/Pyna_ah2hbe.png"
+coverAlt: "Hero Image"
+tags:
+  - Startup
+  - AI
+  - Vision
+  - Maker
+---
+
+## Idea
+
+Imagine you come back home after a stressful day and you are feeling angry, sad, or hopefully happy.\
+It would be nice coming back to a place which feels like it's emphatizing with you, adapts to your mood and tries to comfort you as best as possible.\
+**Pyna is a device which can detect your mood and set the right atmosphere for you, through music, light and potentially much more.**
+
+## Project history
+This project started as a **three day** prototype for a **hackathon**, with the theme of creating a mood reader.\
+Despite being a team of all first year bachelor students, against older master students, we managed to win the hackathon and gain access
+to a lab to further develop our idea over **six months**.\
+We then displayed our protoype at the **Turin Maker Faire 2018**, the project was a crowd favourite and gained us a boot at the much bigger and famous **Maker Faire Rome 2018**. 
+There we replicated our success and got noticed by the **press** which decided to interview us.
+
+<div class="relative rounded-md" style=" width:100%; overflow: hidden; 	object-fit: cover ;">
+  <iframe
+  src="https://res.cloudinary.com/dcu0pdpcd/video/upload/v1702159869/dev_website/projects/pyna/Maker_Faire_2018_Pyna_il_dispositivo_che_riconosce_il_nost-1_uak4sy.mp4"
+  width="100%"
+  height="360"
+  style="height: 360; width: 100%"
+  allow="encrypted-media; "
+  allowfullscreen
+  frameborder="0"
+  ></iframe>
+</div>
+
+## Project structure
+
+The project had two main parts:
+- locally, a **Raspberry Pi** with a **camera** and a **speaker**, enclosed in a **3d printed enclosure**
+- remotely, a **private cloud server** which managed interfacing with several APIs and processing
+
+### The phases
+1. the **user** is in proximity of the pyna device
+2. the user's face is detected by a **face detection** algorithm, running continuously on the raspberry pi
+3. a **picture** of the face is sent to the **private cloud server**
+4. the server requests to a **third party API** to detect the **mood** of the user, from the face picture
+5. the **mood metric** is used to select a light **color**
+6. the mood metric is processed, along with information about the user's preferred music genre, to choose the correct
+   **music** from **Spotify**
+7. **requests are sent** to Spotify API and Philips Hue API to set the correct song and light color
+8. The user mood is logged and displayed on a **dashboard**
+
+## Details
+
+Each user has the possibility to link its **spotify account** and choose some **favourite genres**, which allows for customisation: for somebody happy songs might come from ACDC, for others from Coldplay.
+
+Songs are chosen from the whole spotify catalogue, allowing for **infinite choices**, based on the preferred genres and a **metric** we
+designed.\
+The device would activate **randomly during the day** to try and capture the user expression automatically and
+discreetly, this should allow **continuous** and **unbiased** monitoring.
+
+If the detected mood was **good**, the device would have an easy job of keeping the mood joyful.
+If instead the mood was **bad**, the device would start from choosing "sadder" colours and music
+(for example indigo light and Summertime Sadness from Lana Del Rey), slowly shifting to "happier" colours and more joyful music (like yellow light and MrBrightside from the Killers).\
+The idea was that of walking alongside a friend who's feeling bad, you would first try to understand their mood, emphatizing with him, then you would try to make him think of better things and be happier.
+
+
+### Disclaimer
+Reading the mood through vision only may obviously be not very accurate in a real life scenario, however for the purpose of the hackathon it was the only thing we had at our disposal.\
+Also, our ideas about improving the user mood were not based on psychology research, don't take them as serious advice :) .
+

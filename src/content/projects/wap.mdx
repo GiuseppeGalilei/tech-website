@@ -1,0 +1,39 @@
+---
+title: "WAP - With A Purpose"
+description: "AI powered browser extension for NGO donations, prototype for European Innovation Academy 2019"
+featured: true
+ready: True
+seriesId: first-series
+orderInSeries: 6
+pubDate: "Dec 12 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702844232/dev_website/projects/wap/Wap_1_mklfgd.gif"
+coverAlt: "Hero Image"
+tags:
+  - Startup
+  - AI
+  - Language
+---
+Imagine you are browsing the web and you happen to read an article about some unfortunate event, like a flood, the outspread of a disease or an earthquake. You are moved from the news and willing to help by donating to NGOs, however finding the ones who are working actively on that issue may be difficult.
+
+**WAP “With A Purpose”** is a startup idea developed for the **European Innovation Academy** (EIA), held in Turin in 2019.
+Our aim was to facilitate the donation process for NGOs, so I developed a browser extension that could detect the topic of news articles you are reading on the web and readily provide a selection of NGOs you may want to donate to.
+
+The browser extension was merely the medium through which the user would interface with a larger system, which involved a private cloud server and third party APIs.
+
+These were the phases:
+1. the user is reading a **news article** about an issue
+2. the user clicks on the **WAP extension** icon
+3. the extension sends the URL of the article to a private cloud hosted API **server**
+4. the server sends a request to a **third party API** which performs **topic extraction** over the article
+5. the server, using word2vec, computes the **semantic similarity** between the **NGOs keywords** and the extracted **topics**
+6. NGOs are **ranked** over semantic similarity and the highest ranking ones are sent to the extension
+7. A list of few NGOs is displayed on the extension **popup window**
+8. the user can select one and initiate the **donation** process
+
+This project took 15 hours over 5 days to be completed, with no prior knowledge in developing browser extensions or using NLP techniques.\
+We needed a prototype in a few days that could showcase the feasibility of our idea, to develop it corners where cut, such as butchering a random browser extension found on Github.\
+In the end, among over 50 startups, WAP was selected in the top-10 from the technical standpoint.
+
+![Alt text](https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702160211/dev_website/projects/wap/IMG-20190726-WA0018_bqrk8t.jpg)
+![Alt text](https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702160209/dev_website/projects/wap/67192052_2341322059316776_2842893291932876800_o_xkccbs.jpg)
+

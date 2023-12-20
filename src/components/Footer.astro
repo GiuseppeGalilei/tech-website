@@ -1,0 +1,48 @@
+---
+import MdiTwitter from "~icons/mdi/twitter";
+import MdiLinkedin from "~icons/mdi/linkedin";
+import MdiGithub from "~icons/mdi/github";
+import MdiRss from "~icons/mdi/rss";
+import MdiSitemap from "~icons/mdi/sitemap";
+import { GITHUB_HANDLE, TWITTER_HANDLE, LINKEDIN_HANDLE } from "../consts";
+
+const today = new Date();
+---
+
+<footer class="flex items-center justify-between py-5 container mx-auto md:max-w-4xl">
+  <p>&copy; {today.getFullYear()} Giuseppe Galilei</p>
+  <div class="flex items-center space-x-1">
+    <a
+      href={LINKEDIN_HANDLE}
+      target="_blank"
+      class="w-8 h-8 flex items-center justify-center rounded-md p-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+    >
+      <MdiLinkedin />
+      <span class="sr-only">LinkedIn</span>
+    </a>
+    <a
+      href={GITHUB_HANDLE}
+      target="_blank"
+      class="w-8 h-8 flex items-center justify-center rounded-md p-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+    >
+      <MdiGithub />
+      <span class="sr-only">Github</span>
+    </a>
+    <a
+      href="/rss.xml"
+      target="_blank"
+      class="w-8 h-8 flex items-center justify-center rounded-md p-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+    >
+      <MdiRss />
+      <span class="sr-only">RSS</span>
+    </a>
+    <a
+      href="/sitemap-index.xml"
+      target="_blank"
+      class="w-8 h-8 flex items-center justify-center rounded-md p-1.5 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+    >
+      <MdiSitemap />
+      <span class="sr-only">Sitemap</span>
+    </a>
+  </div>
+</footer>

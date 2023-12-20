@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectList from "../../components/ProjectList.astro";
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .filter((post) => !post.data.planned);
+---
+
+<BaseLayout title="Projects">
+  <h1 class="text-black dark:text-white pb-10 text-4xl">Projects</h1>
+  <ProjectList projects={projects} />
+</BaseLayout>

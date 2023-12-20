@@ -1,0 +1,104 @@
+---
+title: "Setup"
+description: "Let's get our hands dirty"
+featured: False
+ready: true
+seriesId: lapserve
+orderInSeries: 4
+pubDate: "Sept 10 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702898488/dev_website/blog/lapserve/AdobeStock_164586542-1568x882_cyss7f.jpg"
+coverAlt: "Hero Image"
+tags:
+  - server
+  - docker
+  - backup
+---
+
+## Configuring the System
+
+Follow these steps:
+
+- Install the Ubuntu 22.04 LTS on the SSD using the simple GUI, selecting EXT4 with LUKS encryption.
+- Obtain a static IP from your router.
+- Setup SSH server.
+- Install CasaOS and set its web interface to a port other than 80, 81, 443 (as Nginx will need them)
+- Format the archive HDD to LUKS encrypted EXT4 as well and set the correct options to automount it on startup in the right place, while also unlocking it.
+- Then give ownership of the **/DATA** folder to the **root** and **www-data** users, as will be needed by some containers (namely nextcloud and syncthing)
+- Free port 53 from `resolved service`, PiHole will use it.
+- Then use the CasaOS AppStore to install all the required containers.
+
+## Configuring the Containers
+
+A quick note: CasaOS upon installation configures each containers with some default username and password, keep in mind to change them.
+
+### MariaDB
+
+This container may be considered optional, because all other containers we installed, when needed, come with their own SQLite instance. However using it is not recommended for uses different than development or testing.
+
+We’ll use **Adminer** to log in MariaDB and create the databases for Nextcloud and Photoprism, using the SQL console.
+
+Then using **Portainer** we can connect Nextcloud and Photoprism containers to the MariaDB **network**.
+Be sure to check the network settings whenever something is not working, it’s easy to mess this up by redeploying through CasaOS.
+
+### NGINX Proxy Manager
+
+Here we need to create SSL certified proxies for the local services, which is both a nice to have and actually a need sometimes (namely for Nextcloud).
+Here is what I ended up with.
+For a nice tutorial on how to do it check out this wonderful [video](https://www.youtube.com/watch?v=qlcVx-k-02E) from Wolfgang, a true inspiration throughout this project.
+
+### Cloudflared
+
+This gives you remote access to your services, even when behind crazy strict firewalls, NATs, whatever… it just works!
+There are several different options to achieve this, maybe in the future I’ll explore more of them.
+
+Configuration of this container is very straightforward, just place your token and you are good to go!
+
+However, the full setup is quite more involved. You can find a good tutorial from the guys at Crosstalk Solutions, [here](https://www.youtube.com/watch?v=ZvIdFs3M5ic).
+
+Beware that to use it you need a domain name and that, even on paid plans, the policies to use it are quite strict. Don’t think of watching your Plex movies through it, people have been banned for doing so, think of it as a simple way to monitor your services from outside, not fully using them. 
+For that think of hosting your own proxy, it’s in the plans to try Oracle free tier VPS for this, stay tuned!
+
+### Pi hole
+
+I install this every time for adblocking in general.
+Here it comes useful also to give a local DNS record for the domain will be setting up for nextcloud to use, its app otherwise doesn’t work properly.
+Strange, but I’ll link to you a [Reddit thread](https://www.reddit.com/r/NextCloud/comments/1085d05/internal_and_external_access_to_nextcloud_with/) that solved this issue for me, in case you are curious.
+
+To set it up, you just need to follow the wizard, set the local DNS record for Nextcloud and point the DNS setting, in your router, to your pi hole instance.
+
+Then you can enjoy a much cleaner browsing experience across all your devices, you can whitelist some domains if you want them to still show ads and maybe support them.
+
+### Nextcloud
+
+When installing it remember to check that its container is connected to the MariaDB’s network and use the correct database.
+
+Here things get interesting! You can either use it as it is or, if like me you want to squeeze the last bit of performance out of your system, you can get creative with mount points and play with Nextcloud cache files placement.
+
+For those who want to play:
+
+By default Nextcloud places each users’ files and caches, such as thumbnails, in the same folder, this is not optimal if you are using a slow HDD as the main archive. So, I decided to move have thumbnails and previews on the SSD, while the actual files still sit in the HDD.
+
+So, I had to:
+
+- install Nextcloud normally
+- identify such files
+- move them where needed
+- set the correct mount points.
+
+Here are the mount points I used.
+
+To mount my storage folder in Nextcloud I’ll use the **[external storage app](https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage_configuration_gui.html)**, rather than mounting it in the actual Nextcloud data folder using system mount points.
+Nextcloud in fact is quite strict over wanting complete ownership of the files it manages, which have all to pass through its UI to be indexed. Otherwise you would need to perform a manual indexing using the CLI, feasible but not recommended. I tried it but then settled on the other approach, it just works better.
+
+Nextcloud requires also you to specify the domains it will be accessed through.
+
+If we want to access it though Cloudflare, we need to set a variable which will constrict you to pass through Nginx locally, not a huge problem [here](https://youtu.be/p0I8pikm2P4?si=2TgPDBjzW6_F4HDX&t=959).
+
+If everything works, congratulations, the worst has passed!
+
+### Photoprism
+
+Here setup is just a matter of some volume mounts and some environment variables to connect to the database. Here a screenshot from the CasaOS interface:
+Then once in the interface we will launch the indexing and wait some time, depending on our hardware and dimension of the library.
+In my case for around 5000 files, with such old hardware, it needed some hours (you only do it once, be patient or do it overnight).
+Also, in Photoprism I had to disable FFmpeg transcoding, the HW I’m hosting it on is just too old to manage some recent 4k hevc videos, not a huge problem since my network is fast enough and my devices are able to decode it without issues.

@@ -10,6 +10,7 @@ import preact from "@astrojs/preact";
 import Icons from "unplugin-icons/vite";
 import Typed from 'typed.js';
 import react from 'react'
+import partytown from "@astrojs/partytown";
 
 const rehypePrettyCodeOptions = {
   theme: "one-dark-pro",
@@ -33,8 +34,14 @@ const rehypePrettyCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
-  integrations: [mdx(), sitemap(), tailwind(), preact()],
+  site: "https://giuseppegalilei.com",
+  integrations: [mdx(), sitemap(), tailwind(), preact(),
+    partytown({
+      // Adds dataLayer.push as a forwarding-event.
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),],
   markdown: {
     extendDefaultPlugins: true,
     syntaxHighlight: 'shiki',

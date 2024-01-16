@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 // import rehypePrettyCode from "rehype-pretty-code";
 import remarkReadingTime from "./src/plugins/remark-reading-time.mjs";
+import remarkMath from 'remark-math'
+import rehypeMathjax from 'rehype-mathjax'
 import preact from "@astrojs/preact";
 import Icons from "unplugin-icons/vite";
 import Typed from 'typed.js';
@@ -37,7 +39,8 @@ export default defineConfig({
     extendDefaultPlugins: true,
     syntaxHighlight: 'shiki',
     
-    remarkPlugins: [remarkReadingTime],
+    remarkPlugins: [remarkReadingTime, remarkMath],
+    rehypePlugins: [rehypeMathjax],
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
       // https://github.com/shikijs/shiki/blob/main/docs/themes.md

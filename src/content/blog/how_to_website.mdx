@@ -1,0 +1,138 @@
+---
+title: "About this website"
+description: "Tech stack and Design tales, from a newbie "
+featured: true
+ready: true
+seriesId: home
+orderInSeries: 1
+pubDate: "Sept 20 2023"
+cover: "https://res.cloudinary.com/dcu0pdpcd/image/upload/v1702899528/dev_website/blog/lapserve/89qcxx_ut214i.jpg"
+coverAlt: "Hero Image"
+tags:
+- web
+---
+![abcdefghiklmnoprqstwyxz abcdefghiklmnoprqstwyxz abcdefghiklmnoprqstwyxz abcdefghiklmnoprqstwyxz abcdefghiklmnoprqstwyxz (1).png](https://prod-files-secure.s3.us-west-2.amazonaws.com/25e443bd-af88-421e-aa68-f93dfebfda8c/e3844fe5-e3f5-4ddb-a65d-055d7f308897/abcdefghiklmnoprqstwyxz_abcdefghiklmnoprqstwyxz_abcdefghiklmnoprqstwyxz_abcdefghiklmnoprqstwyxz_abcdefghiklmnoprqstwyxz_(1).png)
+
+## TLDR
+
+This is a static website created with **Astro**, versioned and continuously integrated on **GitHub**, hosted and continuously deployed on **Netlify**.
+Drafts are written in **Notion**, exported as **Markdown** and refined as **MarkdownX**.
+Typeface is **Inter**, styling is done with **Tailwind**, the color palette is inspired by Dieter Rams’ era **Braun** products.
+
+## Requirements
+
+I needed:
+
+- low running cost
+- clean aesthetic
+- simple code (I’m a newbie in web dev)
+- easy maintenance
+
+This process was inspired by three people I follow: [Maggie](https://maggieappleton.com/) for the ethos of the project, [Riccardo](https://riccardo.im/articoli/tutorial-sito-statico/) for the technical part and [Arun](https://arun.is) for the design.
+
+## Tech
+
+### Building
+
+First of all, this is a **static** website, which means it is built almost entirely beforehand, so that the hosting will serve almost only html files with eventually some JavaScript., while the client will have little to do. 
+This should make for a **fast** and **lean** website, with little to **no maintenance** needed.
+
+There are several static website builders and frameworks, the best known are Gatsby and Hugo, I opted for **Astro**, a relative newcomer with several tricks up the sleeve. 
+
+For styling I used **TailwindCSS**, I found it easy to use and very well documented.
+
+### Deploy
+
+Keeping this site online costs about **10 euros** per year, which corresponds to the cost of the domain. 
+Hosting is free via **Netlify** as well as content delivery via **Cloudinary**.
+Both services offer very generous free plans, more than enough for me at the moment.
+
+### Where to start
+
+I’m a newbie in web development, so I chose to start from an existing Astro template, tweak it and learn by trial and error. 
+
+Exploring the [Astro Theme Gallery](https://astro.build/themes/) I found the [Nimbus Narrative](https://github.com/abdllahdev/nimbus-narratives) template, it had a clean aesthetic and interesting features, such as article series and table of contents, so I choose it.
+
+The result you see today boasts several **changes** and **improvements** over the original version such as full responsive layout and fonts, and a new blog page layout.
+
+### Tips to start at lightspeed
+
+- Use VScode and install the following extensions
+    - Markdown
+    - TailwindCSS
+    - Astro
+- Understand Astro project structure
+- Understand key Tailwind concepts
+    - responsiveness
+    - dark mode
+    - flex and grid
+    
+    refer to the [documentation](https://tailwindcss.com/docs/installation).
+    
+
+## Design
+
+The aim was to create a space that could be **cozy** as a **diary** yet **simple** and **practical**, as a good **tool**.
+
+![website-identity.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/25e443bd-af88-421e-aa68-f93dfebfda8c/6520ce7a-e3ce-43d7-a6a9-929f7954685d/website-identity.png)
+
+### Layout
+
+The content sits in a column in the **center** of the page, whose **size** has been chosen to enhance **readability**.
+This allows your head to stand still while only eye movement is required for reading, which makes it faster and easier.
+
+The layout is **responsive** but remains **consistent** across mobile and desktop, to simplify development and keep a familiar feel.
+When using larger screens the font size enlarges and some additional content is displayed, like the Table of Contents in the blog page.
+
+The only aesthetic element are the outlined borders which, in my idea, manage to look nice while neatly separating sections.
+
+### Colors
+
+The website has a **dark** and a **light** version, you can switch between them with the button on the top right.
+
+I kept the **background** simple, choosing two shades of **grey** very close to black and white, I did the same for the **text**.
+This because it has been demonstrated that such combination of colors greatly enhances readability, also reducing eye strain.
+
+**Accent colours** are something I still need to work on.
+As of now, the inspiration came from the iconic Braun products designed by Dieter Rams: there, on top of plain background, a few colours popped out, each having a clear and intuitive meaning.
+
+I chose **Teal Green** to indicate that by clicking on it a new page would open, be it internal site navigation or a link to other websites.
+
+I chose **orange** to highlight important information, as of now just my name on the homepage and the home navigation button on the top left.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/25e443bd-af88-421e-aa68-f93dfebfda8c/5379989c-1568-4ee6-82e1-359e577fe968/Untitled.png)
+
+### Typography
+
+I’ve played it safe by choosing the **Inter** typeface by Rasmus Andersson.
+It is a wonderful project which aims to be the Helvetica of the digital world, by prioritizing readability on screens. 
+The project has been very successful and even though it is quite new, you can already find it everywhere, even in NASA instrumentation.
+
+After trying different weights I settled on 300 - Light.
+
+### Details
+
+- Compared to the original theme, the **blogpost page** has been completely **redesigned**, all the main content now sits in the central column, while a table of contents, when reading from desktop, appears on the right making use of the empty space.
+Before, it would appear in the central column, ruining the cohesive aesthetic and hindering usability in case of a very long one.
+- When using dark mode, a light **grey overlay** is placed on top of some images and iframes (especially bright white ones) to **blend** them better with the page.
+
+![Aggiungi un'intestazione (1).gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/25e443bd-af88-421e-aa68-f93dfebfda8c/a20baa26-118a-4bda-a452-7daf70d452f6/Aggiungi_unintestazione_(1).gif)
+
+## Daily usage
+
+The website code lives in a **GitHub** repository, linked to **Netlify** for **CI/CD**.
+
+When I feel like I start by writing articles on **Notion**, this gives me a nice interface, cloud backups and ease of use.
+
+Once I’m fairly satisfied with the result, I open a new **branch** in the repository and paste the article content from Notion in a new `.mdx` **file**.
+From here I can start to **refine** it for display in the website, for example MarkdownX gives me the option to add interactive elements.
+
+Once I’m close to finish I open a **pull request**, Netlify automatically picks it up via GitHub actions and provides a **preview deployment** for testing.
+
+Once I’m happy with the result, the **PR gets merged**, Netlify picks it up, builds and **deploys** the new main version.
+
+## What’s next
+
+- Upgrading from Astro v2 to Astro v4 and add animations.
+- Think of a way to make the homepage less utilitarian.
+- Learn to do illustrations.

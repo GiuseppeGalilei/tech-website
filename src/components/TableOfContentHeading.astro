@@ -13,8 +13,8 @@ export interface Props {
 const { heading } = Astro.props;
 ---
 
-<li class="ml-4">
-  <a class="hover:text-neutral-400 dark:hover:text-white hover:font-bold" href={"#" + heading.slug}>
+<li class="ml-4  marker:dark:text-neutral-500  marker:text-neutral-400">
+  <a class=" text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 dark:hover:text-white hover:font-bold" href={"#" + heading.slug}>
     {heading.text}
   </a>
   {

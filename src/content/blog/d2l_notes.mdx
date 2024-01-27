@@ -359,7 +359,7 @@ It is useful when it holds among successive draws of our data from some underlyi
 
 It stems from few assumptions:
 
-- the relationship between features x and target y is approximately **linear** (i.e. E[Y|X=x] can be expressed as a weighed sum of features x.
+- the relationship between features x and target y is approximately **linear** (i.e. E[Y|X=x] can be expressed as a weighted sum of features x.
     - this allows for the target value to deviate from the expectation on account of **observation noise**.
 - We can impose that this noise is **Gaussian**.
 
@@ -379,7 +379,7 @@ This means that predictions can be expressed with a matrix-vector product:
 
 $\hat{y} = Xw+b$
 
-#### Loss
+### Loss
 
 This function quantifies the distance between the real and predicted values.
 
@@ -398,17 +398,17 @@ To measure the quality of a model on a dataset, we just take the **average of th
 
 $L(w, b) = \frac{1}{n} \sum\_{i=1}^n l^{(i)}(w,b) =\frac{1}{n} \sum\_{i=1}^n\frac{1}{2} (w^T x^{(i)} + b - y^{(i)})^2$
 
-#### Analytic solution
+### Analytic solution
 
 Linear regression is one of the few cases where an analytic solution is possible.
 
-#### Mini-Batch SGD
+### Mini-Batch SGD
 
 This allows to solve models when an analytical solution is not possible or feasible.
 
 It consists in iteratively reduce the error by updating the parameters in the direction by which we lower the loss. → Gradient Descent
 
-#### How many samples to consider?
+### How many samples to consider?
 
 - all : most naive applications, drawback is that it is slow to update values of parameters and also we may have some redundancy in our dataset
 - one:
@@ -416,7 +416,7 @@ It consists in iteratively reduce the error by updating the parameters in the di
     - statistical drawback: some useful layers, like batch normalization, require more than one sample at the time.
 - minibatch: you can start from a number between \[32,256\], the choice depends on memory, accelerators, dataset size, choice of layers.
 
-#### Mini-Batch Implemented
+### Mini-Batch Implemented
 
 ![Untitled](https://res.cloudinary.com/dcu0pdpcd/image/upload/v1705400511/dev_website/blog/d2l_notes/mini-batch_dagsrb.png)
 
@@ -428,7 +428,7 @@ Linear regression is a problem with a global minima, but this is not the usual c
 
 Once our model has been trained we can do predictions, called inference.
 
-#### More about the squared loss and the Gaussian
+### More about the squared loss and the Gaussian
 
 ![Untitled](https://res.cloudinary.com/dcu0pdpcd/image/upload/v1705400511/dev_website/blog/d2l_notes/sq_loss_1_ykhpr5.png)
 
@@ -554,7 +554,7 @@ The central idea in information theory is to quantify the amount of information 
 
 Given a distribution P, its entropy is 
 
-$H[P] = \sum\_j{-P(j)logP(j)}$
+$H[P] = \sum_j{-P(j)logP(j)}$
 
 It is the level of surprise experienced by someone who knows the true probability
 

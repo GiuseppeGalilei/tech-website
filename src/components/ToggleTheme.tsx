@@ -3,7 +3,12 @@ import PhMoonStarsFill from "~icons/ph/moon-stars-fill";
 import PhSunFill from "~icons/ph/sun-fill";
 
 export default function ToggleTheme() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "dark");
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    if (stored) setTheme(stored);
+  }, []);
 
   useEffect(() => {
     if (theme === "dark") {

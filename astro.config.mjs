@@ -43,9 +43,7 @@ export default defineConfig({
       },
     }),],
   markdown: {
-    extendDefaultPlugins: true,
     syntaxHighlight: 'shiki',
-    
     remarkPlugins: [remarkReadingTime, remarkMath],
     rehypePlugins: [rehypeMathjax],
     shikiConfig: {
@@ -54,7 +52,7 @@ export default defineConfig({
       //theme: 'one-dark',
       // Alternatively, provide multiple themes
       // https://github.com/antfu/shikiji#lightdark-dual-themes
-      experimentalThemes: {
+      themes: {
         light: 'vitesse-light',
         dark: 'nord',
       },
@@ -65,9 +63,6 @@ export default defineConfig({
       // Enable word wrap to prevent horizontal scrolling
       wrap: true,
     },
-  },
-  experimental: {
-    assets: true,
   },
   vite: {
     plugins: [

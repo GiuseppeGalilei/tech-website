@@ -1,6 +1,6 @@
 ---
 title: "Remote management, but enjoyable"
-description: "How I remotely manage my parents' house"
+description: "How I remotely manage my parents' home network"
 featured: true
 ready: true
 seriesId: home
@@ -16,28 +16,28 @@ tags:
 
 ## Story time
 
-Once upon a time there was a family full of non tech savvy people, they were desperate for help, treating their phone as if it was their enemy, stucked in front of login forms because they kept forgetting their “very secure” password. 
-The home “hacker” was always there to help, but the issues were rising.
-More and more devices gained “smart” features over the years, speakers, TVs, even the kitchen robot began to ask for wifi passwords, damn it!
-As if things couldn’t get worse the “home hacker” was not a child anymore, moving out meant shifting the task from quick and boring fixes to long and irritating phonecalls, videocalls and shaky whatsapp pictures.
+Once upon a time, there was a family full of non-tech-savvy people. They were desperate for help, treating their phones as enemies and getting stuck in front of login forms because they kept forgetting their “very secure” passwords.
+The home “hacker” was always there to help, but the issues kept multiplying.
+Over the years, more and more devices gained “smart” features: speakers, TVs, even the kitchen robot started asking for Wi-Fi passwords. Damn it.
+As if things couldn’t get worse, the “home hacker” was not a child anymore. Moving out turned quick, boring fixes into long, irritating phone calls, video calls, and shaky WhatsApp pictures.
 Doom seemed near, but technology came to help.
 
 ### TLDR
 
-I grow tired of managing my parents’ smart devices via phonecalls and teamviewer, so I developed a process for easy remote mainteinance, especially of android devices.
+I grew tired of managing my parents’ smart devices via phone calls and TeamViewer, so I developed a process for easy remote maintenance, especially for Android devices.
 
 ## The Process
 
-I remotely get into my home network using a **VPN**-like solution, then I gain control of android devices using **adb** over tcp, even with video and audio mirroring using **scrcpy**.
+I remotely access my home network using a **VPN**-like solution, then control Android devices using **adb** over TCP, with video and audio mirroring through **scrcpy**.
 
 ## The tools of the job
 
-**Tailscale** is a recently introduces VPN solution, something that seems godgiven considering its functionalities and easyness of use.
-For what concerns us, it allows to access our home network from outside even when behind notoriously tricky stuff, like firewalls and NAT.
+**Tailscale** is a recently introduced VPN solution that feels almost too convenient, considering its functionality and ease of use.
+For our purposes, it allows access to the home network from outside, even when behind notoriously tricky things like firewalls and NAT.
 
-**Adb** is a tool used to interface with android devices, using USB or TCP, we’ll of course use the latter option.
+**Adb** is a tool used to interface with Android devices using USB or TCP. We’ll use the latter option.
 
-**Scrcpy** is an amazing open source tool which leverages adb to give us control alongside audio and video, to an android device.
+**Scrcpy** is an amazing open source tool that uses adb to provide control, audio, and video for an Android device.
 
 ## Setup
 
@@ -45,7 +45,7 @@ For what concerns us, it allows to access our home network from outside even whe
 
 Visit [https://tailscale.com/](https://tailscale.com/)
 
-You need to create an account and download a client app on, at least, the device you’ll use for remote management and a device in your home local network (this one needs to be a windows/mac/linux machine).
+You need to create an account and download a client app on, at least, the device you’ll use for remote management and a device in your home local network (this one needs to be a Windows/Mac/Linux machine).
 
 Then you’ll need to set the device at home to act as a subnet router over the routes you prefer, as an example:
 
@@ -55,22 +55,22 @@ tailscale up --advertise-routes=192.168.0.0/24,192.168.1.0/24
 
 This needs to be approved in the Tailscale dashboard, then you are set.
 
-To check if everything is working, connect to the tailscale network and ping some device in the house using its local ip…. Magic, no?
+To check if everything is working, connect to the Tailscale network and ping some device in the house using its local IP. Magic, no?
 
-Note: It may seem trivial to you, in the end VPNs did that for ages, but living under heavy firewalls and CGNATs, for Tailscale to function so well, so easily, it is truly a dream come true!
+Note: this may seem trivial. VPNs have done this for ages. But when you live under heavy firewalls and CGNATs, having Tailscale work so well, so easily, is truly a dream come true.
 
 ### Adb
 
 To set it up, just follow the [instructions](https://developer.android.com/tools/releases/platform-tools)
 
-On the android device you want to access, abilitate developer options and usb debugging.
+On the Android device you want to access, enable developer options and USB debugging.
 
 Then, from your computer run
 ```bash
 adb connect <your device ip>
 ```
 
-You’ll receive a notification on the android device, grant access and you are set.
+You’ll receive a notification on the Android device. Grant access and you are set.
 
 Plus:
 If you need to upload some files to the device, you can do it via:
@@ -79,7 +79,7 @@ adb push <local_device_file_path> <remote_device_destination_path>
 ```
 
 
-Usually, on android, you would want to place files at /sdcard/
+Usually, on Android, you want to place files at /sdcard/.
 
 ### Scrcpy
 
@@ -91,10 +91,10 @@ scrcpy
 ```
 
 
-Hopefully a window will appear with you android device screen mirrored!
+Hopefully, a window will appear with your Android device screen mirrored.
 
-Note: In case you are connected via adb to several devices, just disconnect from the ones you are not using before calling scrcpy.
+Note: if you are connected via adb to several devices, disconnect from the ones you are not using before calling scrcpy.
 
 ## The end
 
-That’s all, hope this will help you too!
+That’s all. Hope this helps you too.

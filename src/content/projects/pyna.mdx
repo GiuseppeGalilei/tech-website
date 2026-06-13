@@ -1,6 +1,6 @@
 ---
 title: "Pyna - the mood reader"
-description: "Started with a three day hackathon, ended up with a press interview and showcase at Maker Faire Rome 2018"
+description: "From a three-day hackathon to a press interview and a Maker Faire Rome 2018 showcase"
 featured: true
 ready: True
 seriesId: first-series
@@ -17,16 +17,16 @@ tags:
 
 ## Idea
 
-Imagine you come back home after a stressful day and you are feeling angry, sad, or hopefully happy.\
-It would be nice coming back to a place which feels like it's emphatizing with you, adapts to your mood and tries to comfort you as best as possible.\
-**Pyna is a device which can detect your mood and set the right atmosphere for you, through music, light and potentially much more.**
+Imagine coming home after a stressful day feeling angry, sad, or hopefully happy.\
+It would be nice to walk into a place that seems to understand your mood, adapts to it, and tries its tiny technological best to comfort you.\
+**Pyna is a device that detects your mood and sets the right atmosphere through music, light, and potentially much more.**
 
 ## Project history
-This project started as a **three day** prototype for a **hackathon**, with the theme of creating a mood reader.\
-Despite being a team of all first year bachelor students, against older master students, we managed to win the hackathon and gain access
-to a lab to further develop our idea over **six months**.\
-We then displayed our protoype at the **Turin Maker Faire 2018**, the project was a crowd favourite and gained us a boot at the much bigger and famous **Maker Faire Rome 2018**. 
-There we replicated our success and got noticed by the **press** which decided to interview us.
+This project started as a **three-day** prototype for a **hackathon** about creating a mood reader.\
+We were all first-year bachelor students competing against older master students, but somehow, delightfully, we won. That gave us access
+to a lab where we developed the idea for another **six months**.\
+We then showcased the prototype at **Turin Maker Faire 2018**, where it became a crowd favorite and earned us a booth at the much larger **Maker Faire Rome 2018**.
+There, the project caught the attention of the **press**, who decided to interview us.
 
 <div class="relative rounded-md" style=" width:100%; overflow: hidden; 	object-fit: cover ;">
   <iframe
@@ -43,14 +43,14 @@ There we replicated our success and got noticed by the **press** which decided t
 ## Project structure
 
 The project had two main parts:
-- locally, a **Raspberry Pi** with a **camera** and a **speaker**, enclosed in a **3d printed enclosure**
-- remotely, a **private cloud server** which managed interfacing with several APIs and processing
+- locally, a **Raspberry Pi** with a **camera** and a **speaker**, enclosed in a **3D printed enclosure**
+- remotely, a **private cloud server** that handled API integrations and processing
 
 ### The phases
 1. the **user** is in proximity of the pyna device
 2. the user's face is detected by a **face detection** algorithm, running continuously on the raspberry pi
 3. a **picture** of the face is sent to the **private cloud server**
-4. the server requests to a **third party API** to detect the **mood** of the user, from the face picture
+4. the server asks a **third party API** to detect the user's **mood** from the face picture
 5. the **mood metric** is used to select a light **color**
 6. the mood metric is processed, along with information about the user's preferred music genre, to choose the correct
    **music** from **Spotify**
@@ -59,20 +59,19 @@ The project had two main parts:
 
 ## Details
 
-Each user has the possibility to link its **spotify account** and choose some **favourite genres**, which allows for customisation: for somebody happy songs might come from ACDC, for others from Coldplay.
+Each user can link their **Spotify account** and choose some **favorite genres**, which allows for customization: for somebody, happy songs might come from ACDC; for others, from Coldplay.
 
-Songs are chosen from the whole spotify catalogue, allowing for **infinite choices**, based on the preferred genres and a **metric** we
+Songs are chosen from the whole Spotify catalogue, allowing for **infinite choices**, based on the preferred genres and a **metric** we
 designed.\
-The device would activate **randomly during the day** to try and capture the user expression automatically and
+The device would activate **randomly during the day** to capture the user's expression automatically and
 discreetly, this should allow **continuous** and **unbiased** monitoring.
 
 If the detected mood was **good**, the device would have an easy job of keeping the mood joyful.
-If instead the mood was **bad**, the device would start from choosing "sadder" colours and music
+If instead the mood was **bad**, the device would start by choosing "sadder" colors and music
 (for example indigo light and Summertime Sadness from Lana Del Rey), slowly shifting to "happier" colours and more joyful music (like yellow light and MrBrightside from the Killers).\
-The idea was that of walking alongside a friend who's feeling bad, you would first try to understand their mood, emphatizing with him, then you would try to make him think of better things and be happier.
+The idea was similar to walking alongside a friend who's feeling bad: first you try to understand their mood, empathize with them, and then gently help them think of better things.
 
 
 ### Disclaimer
-Reading the mood through vision only may obviously be not very accurate in a real life scenario, however for the purpose of the hackathon it was the only thing we had at our disposal.\
-Also, our ideas about improving the user mood were not based on psychology research, don't take them as serious advice :) .
-
+Reading mood through vision alone may obviously be inaccurate in a real-life scenario, but for the hackathon it was what we had available.\
+Also, our ideas about improving someone's mood were not based on psychology research, so please do not take them as serious advice :) .

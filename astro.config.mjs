@@ -1,15 +1,13 @@
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 // import rehypePrettyCode from "rehype-pretty-code";
 import remarkReadingTime from "./src/plugins/remark-reading-time.mjs";
-import remarkMath from 'remark-math'
-import rehypeMathjax from 'rehype-mathjax'
+import remarkMath from "remark-math";
+import rehypeMathjax from "rehype-mathjax";
 import preact from "@astrojs/preact";
 import Icons from "unplugin-icons/vite";
-import Typed from 'typed.js';
-import react from 'react'
 import partytown from "@astrojs/partytown";
 
 const rehypePrettyCodeOptions = {
@@ -35,7 +33,7 @@ const rehypePrettyCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://giuseppegalilei.com",
-  integrations: [mdx(), sitemap(), tailwind(), preact(),
+  integrations: [mdx(), sitemap(), preact(),
     partytown({
       // Adds dataLayer.push as a forwarding-event.
       config: {
@@ -44,8 +42,10 @@ export default defineConfig({
     }),],
   markdown: {
     syntaxHighlight: 'shiki',
-    remarkPlugins: [remarkReadingTime, remarkMath],
-    rehypePlugins: [rehypeMathjax],
+    processor: unified({
+      remarkPlugins: [remarkReadingTime, remarkMath],
+      rehypePlugins: [rehypeMathjax],
+    }),
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
       // https://github.com/shikijs/shiki/blob/main/docs/themes.md

@@ -56,7 +56,7 @@ export default function ({ series, posts, order }: Props) {
               }`}
             >
               <a
-                href={!post.data.planned ? `/blog/${post.slug}` : undefined}
+                href={!post.data.planned ? `/blog/${post.id}` : undefined}
                 class={`space-x-2 ${
                   !post.data.planned
                     ? "hover:font-medium"
